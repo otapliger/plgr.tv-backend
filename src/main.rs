@@ -24,11 +24,15 @@ async fn get_kickstart_sh() -> Response {
     Ok(sh) => sh.into_response(),
     Err(e) => {
       tracing::error!("Failed to read sh/kickstart.sh: {}", e);
-      (StatusCode::INTERNAL_SERVER_ERROR, "Something went wrong...").into_response()
+      internal_server_error().await
     }
   }
 }
 
 async fn not_found() -> Response {
-  (StatusCode::NOT_FOUND, "Not Found").into_response()
+  (StatusCode::NOT_FOUND, "404 Not Found").into_response()
+}
+
+async fn internal_server_error() -> Response {
+  (StatusCode::INTERNAL_SERVER_ERROR, "500 Internal Server Error").into_response()
 }
