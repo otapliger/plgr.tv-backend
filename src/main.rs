@@ -12,7 +12,7 @@ async fn main() {
   tracing_subscriber::fmt::init();
 
   let app = Router::new()
-    .route("/kickstart/sh", get(get_kickstart_sh))
+    .route("/kickstart", get(get_kickstart_sh))
     .fallback(not_found);
 
   let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
